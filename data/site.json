@@ -1,0 +1,22 @@
+﻿{
+  "name": "简彬 Jianbin",
+  "title": "Creative Developer / 创意开发者",
+  "location": "Based in China",
+  "tagline": "Building delightful websites with speed, style and soul. 用代码和设计，把想法变成可感知的体验。",
+  "about": "我热爱 Web 开发、交互设计和产品体验，关注性能、可维护性与视觉表达。I enjoy turning ideas into polished, fast, and meaningful digital products.",
+  "email": "jianbin@example.com",
+  "github": "https://github.com/yourname",
+  "skills": [
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Node.js",
+    "Motion",
+    "Design Systems"
+  ],
+  "highlights": [
+    { "value": "10+", "label": "Projects Built / 已完成项目" },
+    { "value": "95+", "label": "Lighthouse Score / 性能分" },
+    { "value": "24h", "label": "Fast Response / 快速协作" }
+  ]
+}

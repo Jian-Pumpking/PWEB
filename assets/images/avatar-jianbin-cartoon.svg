@@ -1,0 +1,31 @@
+﻿<svg width="640" height="640" viewBox="0 0 640 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="60" y1="40" x2="580" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22D3EE"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="shirt" x1="180" y1="420" x2="470" y2="590" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#111827"/>
+      <stop offset="1" stop-color="#1F2937"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="640" height="640" rx="120" fill="url(#bg)"/>
+  <circle cx="320" cy="300" r="182" fill="#F6D1B5"/>
+  <path d="M138 288C138 184 217 118 320 118C423 118 502 184 502 288V324C502 206 426 152 320 152C214 152 138 206 138 324V288Z" fill="#111827"/>
+  <path d="M180 450C205 403 256 372 320 372C384 372 435 403 460 450V574H180V450Z" fill="url(#shirt)"/>
+
+  <ellipse cx="252" cy="304" rx="21" ry="16" fill="#111827"/>
+  <ellipse cx="388" cy="304" rx="21" ry="16" fill="#111827"/>
+  <ellipse cx="252" cy="301" rx="8" ry="6" fill="#F8FAFC"/>
+  <ellipse cx="388" cy="301" rx="8" ry="6" fill="#F8FAFC"/>
+
+  <path d="M260 370C278 382 300 388 320 388C340 388 362 382 380 370" stroke="#7C2D12" stroke-width="10" stroke-linecap="round"/>
+  <path d="M286 338C301 346 339 346 354 338" stroke="#C08457" stroke-width="8" stroke-linecap="round"/>
+
+  <path d="M216 270C230 252 256 242 282 248" stroke="#0B1120" stroke-width="12" stroke-linecap="round"/>
+  <path d="M358 248C384 242 410 252 424 270" stroke="#0B1120" stroke-width="12" stroke-linecap="round"/>
+
+  <circle cx="320" cy="560" r="10" fill="#22D3EE"/>
+  <text x="320" y="84" text-anchor="middle" fill="#F8FAFC" font-family="'Noto Sans SC', sans-serif" font-size="38" font-weight="700">简彬 Jianbin</text>
+</svg>
