@@ -1,0 +1,102 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog CMS</title>
+    <style>
+      :root { --bg:#0b1225; --panel:#121a31; --line:#2a3558; --text:#e6ecff; --muted:#9fb0d6; --accent:#22d3ee; }
+      * { box-sizing:border-box; }
+      body { margin:0; font-family:Inter,Segoe UI,Arial,sans-serif; background:linear-gradient(135deg,#050814,#0b1225); color:var(--text); }
+      .wrap { width:min(1100px,94vw); margin:24px auto; }
+      .card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px; }
+      h1,h2,h3 { margin:0 0 10px; }
+      .muted{ color:var(--muted); }
+      .row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+      .col { display:grid; gap:8px; }
+      input,textarea,button { border-radius:10px; border:1px solid var(--line); background:#0f1730; color:var(--text); padding:9px 10px; font:inherit; }
+      textarea { min-height:90px; resize:vertical; }
+      button { cursor:pointer; }
+      button.primary { background:linear-gradient(100deg,#22d3ee,#60a5fa); color:#032033; border:none; font-weight:700; }
+      .list { margin-top:14px; display:grid; gap:8px; }
+      .item { border:1px solid var(--line); border-radius:10px; padding:10px; display:flex; justify-content:space-between; gap:10px; align-items:center; }
+      .item small { color:var(--muted); }
+      .hidden { display:none; }
+      .tools { display:flex; gap:8px; }
+      .ok { color:#67e8a5; }
+      .err { color:#fca5a5; }
+      .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+      .full { grid-column:1 / -1; }
+      @media (max-width:900px){ .row{ grid-template-columns:1fr; } }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div id="loginCard" class="card">
+        <h1>Blog CMS</h1>
+        <p class="muted">输入后台密码后可发布文章、上传图片。</p>
+        <div class="row">
+          <input id="password" type="password" placeholder="后台密码" />
+          <button id="loginBtn" class="primary">登录</button>
+        </div>
+        <p id="loginMsg" class="muted"></p>
+      </div>
+
+      <div id="app" class="hidden">
+        <div class="top">
+          <h2>文章管理</h2>
+          <div class="tools">
+            <a href="/blog/index.html" target="_blank"><button>查看博客首页</button></a>
+            <button id="logoutBtn">退出</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 id="formTitle">新建文章</h3>
+          <div class="row">
+            <div class="col">
+              <input id="id" placeholder="id (唯一，如: my-post)" />
+              <input id="title" placeholder="标题" />
+              <input id="date" type="date" />
+              <input id="summary" placeholder="摘要" />
+              <input id="tags" placeholder="标签，逗号分隔" />
+            </div>
+            <div class="col">
+              <label>封面/缩略图路径</label>
+              <input id="cover" placeholder="../assets/images/blog/xxx.jpg" />
+              <label>图集路径（每行一张）</label>
+              <textarea id="gallery" placeholder="../assets/images/blog/a.jpg\n../assets/images/blog/b.jpg"></textarea>
+              <label>正文段落（每行一段）</label>
+              <textarea id="content" placeholder="第一段...\n第二段..."></textarea>
+            </div>
+            <div class="full row">
+              <div class="col">
+                <label><input id="pinned" type="checkbox" /> 置顶文章</label>
+              </div>
+              <div class="col">
+                <label>上传图片（自动返回可用路径）</label>
+                <div class="tools">
+                  <input id="imageFile" type="file" accept="image/*" />
+                  <button id="uploadBtn">上传</button>
+                </div>
+                <input id="uploadResult" readonly placeholder="上传后路径会出现在这里" />
+              </div>
+            </div>
+            <div class="full tools">
+              <button id="saveBtn" class="primary">保存</button>
+              <button id="resetBtn">重置</button>
+            </div>
+          </div>
+          <p id="formMsg" class="muted"></p>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>现有文章</h3>
+          <div id="list" class="list"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

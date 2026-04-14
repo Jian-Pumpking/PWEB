@@ -22,7 +22,7 @@
         <nav>
           <a href="#home">个人主页</a>
           <a href="#projects">个人作品</a>
-          <a href="#blog">个人博客</a>
+          <a href="./blog/index.html">个人博客</a>
         </nav>
       </header>
 
@@ -36,6 +36,17 @@
             <div class="actions">
               <a class="btn primary" href="#projects">See Projects</a>
               <a class="btn ghost" href="#contact">联系我</a>
+            </div>
+            <div class="quick-links" v-if="site.socials && site.socials.length">
+              <a
+                v-for="s in site.socials"
+                :key="s.name"
+                :href="s.url"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {{ s.name }}
+              </a>
             </div>
           </div>
           <div class="hero-avatar">
@@ -55,6 +66,28 @@
           <p id="aboutText">{{ site.about }}</p>
           <div class="skills" id="skills">
             <span v-for="skill in site.skills" :key="skill">{{ skill }}</span>
+          </div>
+        </section>
+
+        <section class="card reveal websites" v-if="site.websites && site.websites.length">
+          <h2>Websites / 我的站点</h2>
+          <div class="website-grid">
+            <article class="website-item" v-for="w in site.websites" :key="w.name">
+              <h3>{{ w.name }}</h3>
+              <p>{{ w.desc }}</p>
+              <a :href="w.url" target="_blank" rel="noreferrer">{{ w.urlText || "Visit →" }}</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="card reveal timeline" v-if="site.experience && site.experience.length">
+          <h2>Journey / 经历</h2>
+          <div class="timeline-list">
+            <article v-for="item in site.experience" :key="`${item.time}-${item.title}`">
+              <p class="timeline-time">{{ item.time }}</p>
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.desc }}</p>
+            </article>
           </div>
         </section>
 
@@ -86,24 +119,6 @@
           </div>
         </section>
 
-        <section class="timeline card reveal">
-          <h2>Journey / 方向</h2>
-          <div class="timeline-list">
-            <article>
-              <h3>Design-Driven Build</h3>
-              <p>From visual concept to production code, consistency first.</p>
-            </article>
-            <article>
-              <h3>Performance by Default</h3>
-              <p>Fast interaction, smooth motion, and clean architecture.</p>
-            </article>
-            <article>
-              <h3>Long-Term Maintainability</h3>
-              <p>Data-driven structure for easy updates in future.</p>
-            </article>
-          </div>
-        </section>
-
         <section id="contact" class="card reveal contact">
           <h2>Let's Build Something / 一起做点酷的</h2>
           <p>
@@ -129,3 +144,4 @@
     <script src="./assets/js/main.js"></script>
   </body>
 </html>
+

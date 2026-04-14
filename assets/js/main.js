@@ -105,11 +105,17 @@ function spawnTrail(x, y) {
 
 function registerParallaxTargets() {
   parallaxTargets = Array.from(
-    document.querySelectorAll(".hero-text, .hero-avatar img, .stat, .card, .project")
+    document.querySelectorAll(".hero-text, .hero-avatar img, .stat, .card, .project, .website-item, .timeline-list article")
   );
 
   parallaxTargets.forEach((el) => {
-    const depth = el.matches(".hero-avatar img") ? 15 : el.matches(".hero-text") ? 9 : el.matches(".project") ? 8 : 6;
+    const depth = el.matches(".hero-avatar img")
+      ? 15
+      : el.matches(".hero-text")
+      ? 9
+      : el.matches(".project, .website-item")
+      ? 8
+      : 6;
     el.dataset.depth = String(depth);
   });
 }

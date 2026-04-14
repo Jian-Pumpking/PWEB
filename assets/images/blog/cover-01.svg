@@ -1,0 +1,13 @@
+﻿<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1200" y2="675" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0ea5e9"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" rx="32" fill="url(#g1)"/>
+  <circle cx="950" cy="120" r="110" fill="#22d3ee" fill-opacity="0.24"/>
+  <circle cx="190" cy="560" r="170" fill="#38bdf8" fill-opacity="0.24"/>
+  <text x="80" y="300" fill="#F8FAFC" font-size="58" font-family="'Noto Sans SC', sans-serif" font-weight="700">Blog Cover 01</text>
+  <text x="80" y="360" fill="#DBEAFE" font-size="34" font-family="'Noto Sans SC', sans-serif">Replace with your own image</text>
+</svg>

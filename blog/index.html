@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="简彬博客首页" />
+    <title>Blog | 简彬 Jianbin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/blog.css" />
+  </head>
+  <body>
+    <div id="blogApp" v-cloak>
+      <header class="topbar">
+        <a href="../index.html#home" class="brand">JIAN<span>BIN</span></a>
+        <nav>
+          <a href="../index.html#home">个人主页</a>
+          <a href="../index.html#projects">个人作品</a>
+          <a href="./index.html">个人博客</a>
+        </nav>
+      </header>
+
+      <main class="layout">
+        <section class="feed">
+          <h1>Blog / 个人博客</h1>
+          <p class="lead">记录开发思考、设计方法与产品实践。</p>
+          <div class="search-wrap">
+            <input
+              v-model.trim="searchQuery"
+              type="search"
+              placeholder="搜索标题、摘要、标签..."
+              aria-label="搜索文章"
+            />
+          </div>
+
+          <section v-if="pinnedPosts.length" class="pinned-block">
+            <h2>Pinned / 置顶文章</h2>
+            <article class="post-card pinned" v-for="post in pinnedPosts" :key="`pin-${post.id}`">
+              <img
+                v-if="post.thumb"
+                class="thumb"
+                :src="post.thumb"
+                :alt="`${post.title} thumbnail`"
+                loading="lazy"
+              />
+              <p class="meta">{{ formatDate(post.date) }}</p>
+              <h3>{{ post.title }}</h3>
+              <p class="summary">{{ post.summary }}</p>
+              <div class="tags">
+                <span v-for="tag in post.tags" :key="`pin-${post.id}-${tag}`">{{ tag }}</span>
+              </div>
+              <a class="read-more" :href="`./post.html?id=${encodeURIComponent(post.id)}`"
+                >Read Post →</a
+              >
+            </article>
+          </section>
+
+          <article class="post-card" v-for="post in pagedPosts" :key="post.id">
+            <img
+              v-if="post.thumb"
+              class="thumb"
+              :src="post.thumb"
+              :alt="`${post.title} thumbnail`"
+              loading="lazy"
+            />
+            <p class="meta">{{ formatDate(post.date) }}</p>
+            <h2>{{ post.title }}</h2>
+            <p class="summary">{{ post.summary }}</p>
+            <div class="tags">
+              <span v-for="tag in post.tags" :key="`${post.id}-${tag}`">{{ tag }}</span>
+            </div>
+            <a class="read-more" :href="`./post.html?id=${encodeURIComponent(post.id)}`"
+              >Read Post →</a
+            >
+          </article>
+
+          <div class="pager" v-if="totalPages > 1">
+            <button :disabled="currentPage === 1" @click="prevPage">上一页</button>
+            <span>第 {{ currentPage }} / {{ totalPages }} 页</span>
+            <button :disabled="currentPage === totalPages" @click="nextPage">下一页</button>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <section class="side-card">
+            <h3>分类标签</h3>
+            <div class="chips">
+              <button
+                :class="{ active: activeTag === '' }"
+                @click="activeTag = ''"
+              >
+                全部
+              </button>
+              <button
+                v-for="tag in allTags"
+                :key="tag"
+                :class="{ active: activeTag === tag }"
+                @click="activeTag = tag"
+              >
+                {{ tag }}
+              </button>
+            </div>
+          </section>
+
+          <section class="side-card">
+            <h3>归档</h3>
+            <div class="chips">
+              <button
+                :class="{ active: activeYear === '' }"
+                @click="activeYear = ''"
+              >
+                全部
+              </button>
+              <button
+                v-for="year in allYears"
+                :key="year"
+                :class="{ active: activeYear === year }"
+                @click="activeYear = year"
+              >
+                {{ year }}
+              </button>
+            </div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script src="../assets/vendor/vue.global.prod.js"></script>
+    <script src="../data/blogs.js"></script>
+    <script src="../assets/js/blog.js"></script>
+  </body>
+</html>

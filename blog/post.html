@@ -20,20 +20,38 @@
         <nav>
           <a href="../index.html#home">个人主页</a>
           <a href="../index.html#projects">个人作品</a>
-          <a href="../index.html#blog">个人博客</a>
+          <a href="./index.html">个人博客</a>
         </nav>
       </header>
 
       <main class="post-main">
-        <a class="back" href="../index.html#blog">← Back to Blog</a>
+        <a class="back" href="./index.html">← Back to Blog</a>
 
         <article v-if="post" class="post-card">
           <p class="post-date">{{ formatDate(post.date) }}</p>
           <h1>{{ post.title }}</h1>
           <p class="post-summary">{{ post.summary }}</p>
+          <img
+            v-if="post.cover"
+            class="post-cover"
+            :src="post.cover"
+            :alt="`${post.title} cover`"
+          />
           <div class="tags">
             <span v-for="tag in post.tags" :key="tag">{{ tag }}</span>
           </div>
+          <section class="gallery" v-if="post.gallery && post.gallery.length">
+            <h3>Gallery / 图集</h3>
+            <div class="gallery-grid">
+              <img
+                v-for="(img, idx) in post.gallery"
+                :key="`${post.id}-g-${idx}`"
+                :src="img"
+                :alt="`${post.title} gallery ${idx + 1}`"
+                loading="lazy"
+              />
+            </div>
+          </section>
           <section class="post-content">
             <p v-for="(line, idx) in post.content" :key="idx">{{ line }}</p>
           </section>
@@ -51,3 +69,4 @@
     <script src="../assets/js/post.js"></script>
   </body>
 </html>
+
