@@ -1,0 +1,42 @@
+﻿window.BLOGS_DATA = [
+  {
+    id: "fast-landing-pages",
+    title: "How I Build Fast Landing Pages",
+    date: "2026-04-14",
+    summary: "A practical workflow for building high-conversion and high-performance pages. 关于高性能落地页的实战流程。",
+    link: "#",
+    tags: ["Frontend", "Performance", "Workflow"],
+    content: [
+      "I start from content hierarchy before touching animation. The first screen should answer what, why, and next action in under five seconds.",
+      "在实现层面，我会先保证关键渲染路径简洁：减少阻塞脚本、控制首屏资源体积、保证字体加载策略稳定。",
+      "Then I add motion progressively: subtle entrance, deliberate hover, and clear interaction feedback. Motion should support conversion, not distract from it.",
+      "最后再做性能回归验证，重点看 Lighthouse、交互延迟和移动端流畅度，确保美观和速度同时在线。"
+    ]
+  },
+  {
+    id: "design-to-code-notes",
+    title: "Design to Code Notes",
+    date: "2026-04-10",
+    summary: "How to translate visual ideas into clean, maintainable code systems. 从视觉稿到代码系统的思路记录。",
+    link: "#",
+    tags: ["Design", "Engineering", "System"],
+    content: [
+      "A good handoff is not about pixel-perfect screenshots. It is about building reusable tokens: spacing, type scale, color roles, and component states.",
+      "我会把视觉设计拆成可复用规则，然后映射为 CSS variables 和组件约束，这样后续改版时成本更低。",
+      "When design intent is clear in code, collaboration becomes faster. Designers and developers can iterate without rewriting everything."
+    ]
+  },
+  {
+    id: "weekly-dev-log",
+    title: "Weekly Dev Log",
+    date: "2026-04-08",
+    summary: "Short updates on experiments, lessons, and product thoughts each week. 每周开发与思考小结。",
+    link: "#",
+    tags: ["Log", "Thoughts", "Growth"],
+    content: [
+      "This week I focused on balancing bold visual style with maintainable structure. Data-driven sections saved lots of future editing effort.",
+      "本周也尝试了更轻量的鼠标粒子拖尾方案，把效果放进同一个 canvas，减少额外性能开销。",
+      "Next week I plan to add a simple post template workflow so writing and publishing blog updates becomes one-step editing."
+    ]
+  }
+];

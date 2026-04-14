@@ -1,0 +1,20 @@
+﻿window.PROJECTS_DATA = [
+  {
+    title: "Project Placeholder A",
+    summary: "A high-impact landing page with polished animation and clear conversion flow. 高转化落地页，动效与性能并重。",
+    link: "#",
+    tags: ["Landing", "UI", "Performance"]
+  },
+  {
+    title: "Project Placeholder B",
+    summary: "Dashboard experience focused on information hierarchy and smooth interactions. 后台系统，注重信息架构和操作效率。",
+    link: "#",
+    tags: ["Dashboard", "UX", "Data"]
+  },
+  {
+    title: "Project Placeholder C",
+    summary: "Experimental visual website with immersive storytelling and custom motion. 叙事型创意站点，强调视觉沉浸感。",
+    link: "#",
+    tags: ["Creative", "Story", "Motion"]
+  }
+];

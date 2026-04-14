@@ -1,12 +1,9 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="简彬的个人网站 | Personal site for Jianbin."
-    />
+    <meta name="description" content="简彬的个人网站 | Personal site for Jianbin." />
     <title>简彬 | Jianbin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,92 +16,116 @@
   <body>
     <canvas id="starfield" aria-hidden="true"></canvas>
 
-    <header class="topbar reveal">
-      <a href="#home" class="brand">JIAN<span>BIN</span></a>
-      <nav>
-        <a href="#about">关于 About</a>
-        <a href="#projects">项目 Projects</a>
-        <a href="#contact">联系 Contact</a>
-      </nav>
-    </header>
+    <div id="app" v-cloak>
+      <header class="topbar reveal">
+        <a href="#home" class="brand">JIAN<span>BIN</span></a>
+        <nav>
+          <a href="#home">个人主页</a>
+          <a href="#projects">个人作品</a>
+          <a href="#blog">个人博客</a>
+        </nav>
+      </header>
 
-    <main id="home">
-      <section class="hero reveal">
-        <div class="hero-text">
-          <p class="tag">HELLO 你好, I'M</p>
-          <h1 id="heroName">简彬 Jianbin</h1>
-          <p class="hero-role" id="heroRole">Creative Developer / 创意开发者</p>
-          <p class="subtitle" id="heroTagline">
-            Building delightful websites with speed, style and soul.
-            用代码和设计，把想法变成可感知的体验。
-          </p>
-          <div class="actions">
-            <a class="btn primary" href="#projects">See Projects</a>
-            <a class="btn ghost" href="#contact">联系我</a>
+      <main id="home">
+        <section class="hero reveal">
+          <div class="hero-text">
+            <p class="tag">HELLO 你好, I'M</p>
+            <h1 id="heroName">{{ site.name }}</h1>
+            <p class="hero-role" id="heroRole">{{ site.title }}</p>
+            <p class="subtitle" id="heroTagline">{{ site.tagline }}</p>
+            <div class="actions">
+              <a class="btn primary" href="#projects">See Projects</a>
+              <a class="btn ghost" href="#contact">联系我</a>
+            </div>
           </div>
-        </div>
-        <div class="hero-avatar">
-          <img
-            src="./assets/images/avatar-jianbin-cartoon.svg"
-            alt="简彬卡通头像"
-          />
-        </div>
-      </section>
+          <div class="hero-avatar">
+            <img src="./assets/images/avatar-jianbin-cartoon.svg" alt="简彬卡通头像" />
+          </div>
+        </section>
 
-      <section class="stats reveal" id="stats"></section>
-
-      <section id="about" class="card reveal">
-        <h2>About Me / 关于我</h2>
-        <p id="aboutText">
-          我热爱 Web 开发、交互设计和产品体验，关注性能、可维护性与视觉表达。
-          I enjoy turning ideas into polished, fast, and meaningful digital
-          products.
-        </p>
-        <div class="skills" id="skills"></div>
-      </section>
-
-      <section id="projects" class="projects reveal">
-        <h2>Featured Projects / 代表项目</h2>
-        <div class="project-grid" id="projectGrid"></div>
-      </section>
-
-      <section class="timeline card reveal">
-        <h2>Journey / 方向</h2>
-        <div class="timeline-list">
-          <article>
-            <h3>Design-Driven Build</h3>
-            <p>From visual concept to production code, consistency first.</p>
+        <section class="stats reveal" id="stats">
+          <article class="stat" v-for="item in site.highlights" :key="item.label">
+            <strong>{{ item.value }}</strong>
+            <span>{{ item.label }}</span>
           </article>
-          <article>
-            <h3>Performance by Default</h3>
-            <p>Fast interaction, smooth motion, and clean architecture.</p>
-          </article>
-          <article>
-            <h3>Long-Term Maintainability</h3>
-            <p>Data-driven structure for easy updates in future.</p>
-          </article>
-        </div>
-      </section>
+        </section>
 
-      <section id="contact" class="card reveal contact">
-        <h2>Let's Build Something / 一起做点酷的</h2>
-        <p>
-          Email:
-          <a id="emailLink" href="mailto:you@example.com">you@example.com</a>
-        </p>
-        <p>
-          GitHub:
-          <a id="githubLink" href="https://github.com/yourname" target="_blank" rel="noreferrer"
-            >github.com/yourname</a
-          >
-        </p>
-      </section>
-    </main>
+        <section id="about" class="card reveal">
+          <h2>About Me / 关于我</h2>
+          <p id="aboutText">{{ site.about }}</p>
+          <div class="skills" id="skills">
+            <span v-for="skill in site.skills" :key="skill">{{ skill }}</span>
+          </div>
+        </section>
 
-    <footer class="reveal">
-      <small>© <span id="year"></span> 简彬 Jianbin. All rights reserved.</small>
-    </footer>
+        <section id="projects" class="projects reveal">
+          <h2>Featured Projects / 代表项目</h2>
+          <div class="project-grid" id="projectGrid">
+            <article class="project" v-for="item in projects" :key="item.title">
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.summary }}</p>
+              <div class="project-tags">
+                <span v-for="tag in item.tags" :key="`${item.title}-${tag}`">{{ tag }}</span>
+              </div>
+              <a :href="item.link" target="_blank" rel="noreferrer">View Project →</a>
+            </article>
+          </div>
+        </section>
 
+        <section id="blog" class="projects reveal">
+          <h2>Blog / 个人博客</h2>
+          <div class="project-grid" id="blogGrid">
+            <article class="project" v-for="item in blogs" :key="item.title">
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.summary }}</p>
+              <div class="project-tags">
+                <span v-for="tag in item.tags" :key="`${item.title}-${tag}`">{{ tag }}</span>
+              </div>
+              <a :href="blogLink(item)">Read Post →</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="timeline card reveal">
+          <h2>Journey / 方向</h2>
+          <div class="timeline-list">
+            <article>
+              <h3>Design-Driven Build</h3>
+              <p>From visual concept to production code, consistency first.</p>
+            </article>
+            <article>
+              <h3>Performance by Default</h3>
+              <p>Fast interaction, smooth motion, and clean architecture.</p>
+            </article>
+            <article>
+              <h3>Long-Term Maintainability</h3>
+              <p>Data-driven structure for easy updates in future.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="contact" class="card reveal contact">
+          <h2>Let's Build Something / 一起做点酷的</h2>
+          <p>
+            Email:
+            <a :href="`mailto:${site.email}`" id="emailLink">{{ site.email }}</a>
+          </p>
+          <p>
+            GitHub:
+            <a :href="site.github" id="githubLink" target="_blank" rel="noreferrer">{{ githubText }}</a>
+          </p>
+        </section>
+      </main>
+
+      <footer class="reveal">
+        <small>© {{ year }} {{ site.name }}. All rights reserved.</small>
+      </footer>
+    </div>
+
+    <script src="./assets/vendor/vue.global.prod.js"></script>
+    <script src="./data/site.js"></script>
+    <script src="./data/projects.js"></script>
+    <script src="./data/blogs.js"></script>
     <script src="./assets/js/main.js"></script>
   </body>
 </html>

@@ -1,4 +1,8 @@
-﻿:root {
+﻿[v-cloak] {
+  display: none;
+}
+
+:root {
   --bg-0: #030712;
   --bg-1: #0b1225;
   --panel: rgba(8, 15, 34, 0.75);
@@ -434,4 +438,7 @@ footer {
     transform: none !important;
   }
 }
+
+
+
 

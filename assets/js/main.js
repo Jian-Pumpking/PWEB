@@ -1,18 +1,4 @@
-﻿const yearEl = document.querySelector("#year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-      }
-    });
-  },
-  { threshold: 0.14 }
-);
-
-document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+﻿const { createApp } = Vue;
 
 const canvas = document.getElementById("starfield");
 const ctx = canvas ? canvas.getContext("2d") : null;
@@ -22,6 +8,26 @@ let parallaxTargets = [];
 let pointerX = window.innerWidth / 2;
 let pointerY = window.innerHeight / 2;
 let parallaxFrame = null;
+let revealObserver = null;
+
+function initRevealObserver() {
+  if (revealObserver) {
+    revealObserver.disconnect();
+  }
+
+  revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        }
+      });
+    },
+    { threshold: 0.14 }
+  );
+
+  document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+}
 
 function resizeCanvas() {
   if (!canvas) return;
@@ -43,6 +49,7 @@ function createStars(count) {
 function drawStars() {
   if (!ctx || !canvas) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   for (const star of stars) {
     star.y += star.speed * star.z;
     if (star.y > canvas.height) {
@@ -102,13 +109,7 @@ function registerParallaxTargets() {
   );
 
   parallaxTargets.forEach((el) => {
-    const depth = el.classList.contains("hero-avatar") || el.matches(".hero-avatar img")
-      ? 15
-      : el.matches(".hero-text")
-      ? 9
-      : el.matches(".project")
-      ? 8
-      : 6;
+    const depth = el.matches(".hero-avatar img") ? 15 : el.matches(".hero-text") ? 9 : el.matches(".project") ? 8 : 6;
     el.dataset.depth = String(depth);
   });
 }
@@ -152,101 +153,67 @@ function setupMouseEffects() {
   });
 }
 
-async function loadData() {
-  const skillsWrap = document.querySelector("#skills");
-  const projectGrid = document.querySelector("#projectGrid");
-  const aboutText = document.querySelector("#aboutText");
-  const heroRole = document.querySelector("#heroRole");
-  const heroName = document.querySelector("#heroName");
-  const heroTagline = document.querySelector("#heroTagline");
-  const emailLink = document.querySelector("#emailLink");
-  const githubLink = document.querySelector("#githubLink");
-  const statsWrap = document.querySelector("#stats");
-
-  try {
-    const [siteRes, projectRes] = await Promise.all([
-      fetch("./data/site.json"),
-      fetch("./data/projects.json")
-    ]);
-
-    if (!siteRes.ok || !projectRes.ok) {
-      throw new Error("Failed to fetch site data");
+createApp({
+  data() {
+    return {
+      year: new Date().getFullYear(),
+      site: {
+        name: "简彬 Jianbin",
+        title: "Creative Developer / 创意开发者",
+        tagline: "Building delightful websites with speed, style and soul.",
+        about: "",
+        email: "jianbin@example.com",
+        github: "https://github.com/yourname",
+        skills: [],
+        highlights: []
+      },
+      projects: [],
+      blogs: []
+    };
+  },
+  computed: {
+    githubText() {
+      return String(this.site.github || "").replace("https://", "");
     }
+  },
+  methods: {
+    blogLink(item) {
+      if (item && item.link && item.link !== "#") {
+        return item.link;
+      }
+      return `./blog/post.html?id=${encodeURIComponent(item?.id || "")}`;
+    },
+    async loadData() {
+      try {
+        if (!window.SITE_DATA || !window.PROJECTS_DATA || !window.BLOGS_DATA) {
+          throw new Error("Data globals are missing");
+        }
 
-    const site = await siteRes.json();
-    const projects = await projectRes.json();
+        this.site = window.SITE_DATA;
+        this.projects = window.PROJECTS_DATA;
+        this.blogs = window.BLOGS_DATA;
 
-    document.title = `${site.name} | Portfolio`;
+        document.title = `${this.site.name} | Portfolio`;
 
-    if (heroName) heroName.textContent = site.name;
-    if (heroRole) heroRole.textContent = site.title;
-    if (heroTagline) heroTagline.textContent = site.tagline;
-    if (aboutText) aboutText.textContent = site.about;
-
-    if (emailLink) {
-      emailLink.textContent = site.email;
-      emailLink.href = `mailto:${site.email}`;
+        await this.$nextTick();
+        initRevealObserver();
+        registerParallaxTargets();
+        renderParallax();
+      } catch (error) {
+        console.error("Data loading error:", error);
+      }
     }
+  },
+  mounted() {
+    resizeCanvas();
+    createStars(Math.floor(window.innerWidth / 3.2));
+    drawStars();
+    setupMouseEffects();
+    this.loadData();
 
-    if (githubLink) {
-      const githubText = String(site.github).replace("https://", "");
-      githubLink.textContent = githubText;
-      githubLink.href = site.github;
-    }
-
-    if (skillsWrap) {
-      skillsWrap.innerHTML = "";
-      site.skills.forEach((skill) => {
-        const chip = document.createElement("span");
-        chip.textContent = skill;
-        skillsWrap.appendChild(chip);
-      });
-    }
-
-    if (statsWrap) {
-      statsWrap.innerHTML = "";
-      site.highlights.forEach((item) => {
-        const stat = document.createElement("article");
-        stat.className = "stat";
-        stat.innerHTML = `<strong>${item.value}</strong><span>${item.label}</span>`;
-        statsWrap.appendChild(stat);
-      });
-    }
-
-    if (projectGrid) {
-      projectGrid.innerHTML = "";
-      projects.forEach((item) => {
-        const card = document.createElement("article");
-        card.className = "project";
-
-        const tags = (item.tags || []).map((tag) => `<span>${tag}</span>`).join("");
-
-        card.innerHTML = `
-          <h3>${item.title}</h3>
-          <p>${item.summary}</p>
-          <div class="project-tags">${tags}</div>
-          <a href="${item.link}" target="_blank" rel="noreferrer">View Project →</a>
-        `;
-
-        projectGrid.appendChild(card);
-      });
-    }
-
-    registerParallaxTargets();
-    renderParallax();
-  } catch (error) {
-    console.error("Data loading error:", error);
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      createStars(Math.floor(window.innerWidth / 3.2));
+    });
   }
-}
-
-resizeCanvas();
-createStars(Math.floor(window.innerWidth / 3.2));
-drawStars();
-setupMouseEffects();
-registerParallaxTargets();
-loadData();
-
-window.addEventListener("resize", () => {
-  resizeCanvas();
-  createStars(Math.floor(window.innerWidth / 3.2));
-});
+}).mount("#app");

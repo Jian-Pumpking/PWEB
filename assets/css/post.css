@@ -1,0 +1,153 @@
+﻿[v-cloak] {
+  display: none;
+}
+
+:root {
+  --bg-0: #030712;
+  --bg-1: #0b1225;
+  --line: rgba(148, 163, 184, 0.28);
+  --text: #f8fafc;
+  --muted: #cbd5e1;
+  --cyan: #22d3ee;
+  --panel: rgba(8, 15, 34, 0.78);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 12% 0%, #102347 0%, transparent 34%),
+    radial-gradient(circle at 95% 20%, #3b1d0f 0%, transparent 30%),
+    linear-gradient(135deg, var(--bg-0), var(--bg-1));
+  min-height: 100vh;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(3, 7, 18, 0.74);
+  backdrop-filter: blur(12px);
+}
+
+.brand {
+  text-decoration: none;
+  color: var(--text);
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.brand span {
+  color: var(--cyan);
+}
+
+nav {
+  display: flex;
+  gap: 14px;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+nav a:hover {
+  color: var(--text);
+}
+
+.post-main {
+  width: min(860px, 92vw);
+  margin: 0 auto;
+  padding: 30px 0 60px;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: var(--cyan);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.post-card {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--panel);
+  padding: 24px;
+}
+
+.post-date {
+  margin: 0;
+  color: #fdba74;
+  letter-spacing: 0.06em;
+  font-size: 0.86rem;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 10px 0 12px;
+  font-family: "Orbitron", "Noto Sans SC", sans-serif;
+  font-size: clamp(1.7rem, 5.8vw, 3rem);
+  line-height: 1.08;
+}
+
+.post-summary {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.tags {
+  margin: 14px 0 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tags span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 0.82rem;
+}
+
+.post-content {
+  display: grid;
+  gap: 10px;
+}
+
+.post-content p {
+  margin: 0;
+  color: #e2e8f0;
+  line-height: 1.9;
+}
+
+@media (max-width: 620px) {
+  .topbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
