@@ -105,17 +105,11 @@ function spawnTrail(x, y) {
 
 function registerParallaxTargets() {
   parallaxTargets = Array.from(
-    document.querySelectorAll(".hero-text, .hero-avatar img, .stat, .card, .project, .website-item, .timeline-list article")
+    document.querySelectorAll(".hero-avatar img")
   );
 
   parallaxTargets.forEach((el) => {
-    const depth = el.matches(".hero-avatar img")
-      ? 15
-      : el.matches(".hero-text")
-      ? 9
-      : el.matches(".project, .website-item")
-      ? 8
-      : 6;
+    const depth = 12;
     el.dataset.depth = String(depth);
   });
 }
@@ -130,10 +124,10 @@ function renderParallax() {
 
   parallaxTargets.forEach((el) => {
     const depth = Number(el.dataset.depth || 6);
-    const tx = -nx * depth;
-    const ty = -ny * depth;
-    el.style.setProperty("--tx", `${tx.toFixed(2)}px`);
-    el.style.setProperty("--ty", `${ty.toFixed(2)}px`);
+    const tx = Math.round(-nx * depth);
+    const ty = Math.round(-ny * depth);
+    el.style.setProperty("--tx", `${tx}px`);
+    el.style.setProperty("--ty", `${ty}px`);
   });
 }
 
